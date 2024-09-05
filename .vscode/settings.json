@@ -13,6 +13,7 @@
         "postcss.config.mjs": true,
         "tsconfig.json": true,
         "next.config.mjs": true,
+        "next-env.d.ts": true,
         ".eslintrc.json": true,
         "tailwind.config.ts": true,
         "README.md": true,
@@ -22,5 +23,8 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
     },
-    "eslint.validate": ["javascript", "typescript"],
+    "eslint.validate": [
+        "javascript",
+        "typescript"
+    ],
 }
