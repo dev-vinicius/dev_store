@@ -1,3 +1,4 @@
+import { AddToCartButton } from '@/components/add-to-cart-button'
 import { api } from '@/data/api'
 import { Product } from '@/data/types/products'
 import { Metadata } from 'next'
@@ -11,8 +12,8 @@ interface ProductParams {
 
 async function getProduct(slug: string): Promise<Product> {
   const response = await api(`/products/${slug}`, {
-    cache: 'no-store',
-    // next: { revalidate: 60 * 60 },
+    // cache: 'no-store',
+    next: { revalidate: 60 * 60 },
   })
   const product = await response.json()
   return product
@@ -25,6 +26,13 @@ export async function generateMetadata({
   return {
     title: product.title,
   }
+}
+
+export async function generateStaticParams() {
+  const response = await api('/products/featured')
+  const products: Product[] = await response.json()
+
+  return products.map((product) => ({ slug: product.slug }))
 }
 
 export default async function ProductPage({ params }: ProductParams) {
@@ -98,12 +106,7 @@ export default async function ProductPage({ params }: ProductParams) {
           </div>
         </div>
 
-        <button
-          type="button"
-          className="mt-8 flex items-center justify-center rounded-full bg-emerald-600 font-semibold text-white h-12"
-        >
-          Adicionar ao carrinho
-        </button>
+        <AddToCartButton productId={product.id} />
       </div>
     </div>
   )
