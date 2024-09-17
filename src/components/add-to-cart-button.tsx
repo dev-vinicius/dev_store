@@ -1,3 +1,4 @@
+'use client'
 import { useCart } from '@/contexts/cart-context'
 
 export interface AddToCartButtonProps {
